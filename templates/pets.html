@@ -1,51 +1,16 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-  <meta charset="UTF-8">
-  <title>Pets | PetCare</title>
+{% extends 'base.html' %}
 
-  <!-- Ícone da aba do navegador -->
-  <link rel="icon" type="image/png" href="{{ url_for('static', filename='imagens/favicon4.png') }}">
+{% block content %}
+<main class="conteudo">
+  <h2>Pets</h2>
 
-  <!-- Estilos principais -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style-agendamentos.css') }}">
+  <!-- Botão para adicionar um novo pet -->
+  <div class="centro-botao">
+    <a href="{{ url_for('novo_pet') }}" class="botao adicionar">+ Novo Pet</a>
+  </div>
 
-  <!-- Responsividade -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- Ícones -->
-  <script src="https://kit.fontawesome.com/99c29731df.js" crossorigin="anonymous"></script>
-</head>
-<body>
-
-  <!-- MENU DE NAVEGAÇÃO -->
-  <header>
-    <div class="menu-container">
-      <div class="logo">🐾 PetCare</div>
-      <nav>
-        <ul>
-          <!-- Links de navegação entre as páginas -->
-          <li><a href="{{ url_for('home') }}">Início</a></li>
-          <li><a href="{{ url_for('listar_clientes') }}">Clientes</a></li>
-          <li><a href="{{ url_for('listar_pets') }}">Pets</a></li>
-          <li><a href="{{ url_for('listar_agendamentos') }}">Agendamentos</a></li>
-          <li><a href="{{ url_for('financas') }}">Finanças</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
-
-  <!-- CONTEÚDO PRINCIPAL DA PÁGINA -->
-  <main class="conteudo">
-    <h2>Pets</h2>
-
-    <!-- Botão para adicionar um novo pet -->
-    <div class="centro-botao">
-      <a href="{{ url_for('novo_pet') }}" class="botao adicionar">+ Novo Pet</a>
-    </div>
-
-    <!-- Tabela de pets cadastrados -->
+  <!-- Tabela de pets cadastrados -->
+  <div class="tabela-container">
     <table>
       <thead>
         <tr>
@@ -55,21 +20,18 @@
           <th>Raça</th>
           <th>Idade</th>
           <th>Peso (kg)</th>
-          <th>Ações</th> <!-- Coluna para botões de editar/excluir -->
+          <th>Ações</th>
         </tr>
       </thead>
       <tbody>
         {% for pet in pets %}
         <tr>
-          <!-- Cada dado do pet vindo do banco de dados -->
-          <td>{{ pet[0] }}</td> <!-- ID -->
-          <td>{{ pet[1] }}</td> <!-- Nome do Pet -->
-          <td>{{ pet[2] }}</td> <!-- Nome do Tutor -->
-          <td>{{ pet[3] }}</td> <!-- Raça -->
-          <td>{{ pet[4] }}</td> <!-- Idade -->
-          <td>{{ pet[5] }}</td> <!-- Peso -->
-
-          <!-- Botões de ação -->
+          <td>{{ pet[0] }}</td>
+          <td>{{ pet[1] }}</td>
+          <td>{{ pet[2] }}</td>
+          <td>{{ pet[3] }}</td>
+          <td>{{ pet[4] }}</td>
+          <td>{{ pet[5] }}</td>
           <td class="acoes">
             <a href="{{ url_for('editar_pet', id=pet[0]) }}" class="botao-editar">Editar</a>
             <a href="{{ url_for('excluir_pet', id=pet[0]) }}" class="botao-excluir" onclick="return confirm('Tem certeza que deseja excluir este pet?')">Excluir</a>
@@ -78,19 +40,6 @@
         {% endfor %}
       </tbody>
     </table>
-  </main>
-
-  <!-- RODAPÉ PADRÃO -->
-  <footer>
-    <div class="footer-container">
-      <p>&copy; 2025 PetCare. Todos os direitos reservados.</p>
-      <div class="redes">
-        <a href="#"><i class="fab fa-instagram"></i></a>
-        <a href="#"><i class="fab fa-facebook"></i></a>
-        <a href="#"><i class="fab fa-whatsapp"></i></a>
-      </div>
-    </div>
-  </footer>
-
-</body>
-</html>
+  </div>
+</main>
+{% endblock %}

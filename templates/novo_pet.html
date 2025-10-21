@@ -1,89 +1,36 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-  <meta charset="UTF-8">
-  <title>Novo Pet | PetCare</title>
+{% extends "base.html" %}
 
-  <!-- Ícone da aba do navegador -->
-  <link rel="icon" type="image/png" href="{{ url_for('static', filename='imagens/favicon4.png') }}">
+{% block title %}Novo Pet | PetCare{% endblock %}
 
-  <!-- CSS principal do projeto -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+{% block content %}
+<main class="conteudo">
+  <h2>Novo Pet</h2>
 
-  <!-- CSS específico para formulários como este -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style-novo_agendamento.css') }}">
+  <!-- Formulário de cadastro de Pet -->
+  <form action="{{ url_for('novo_pet') }}" method="POST" class="formulario">
 
-  <!-- Fonte Montserrat para estilização da tipografia -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Nome do Pet -->
+    <label for="nome_pet">Nome do Pet:</label>
+    <input type="text" id="nome_pet" name="nome_pet" required>
 
-  <!-- Ícones do FontAwesome -->
-  <script src="https://kit.fontawesome.com/99c29731df.js" crossorigin="anonymous"></script>
+    <!-- Cliente -->
+    <label for="nome_cliente">Nome do Cliente:</label>
+    <input type="text" id="nome_cliente" name="nome_cliente" required>
 
-  <!-- Responsividade para dispositivos móveis -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
+    <!-- Raça -->
+    <label for="raca">Raça:</label>
+    <input type="text" id="raca" name="raca" required>
 
-<body>
+    <!-- Idade -->
+    <label for="idade">Idade:</label>
+    <input type="number" id="idade" name="idade" required>
 
-  <!-- MENU DE NAVEGAÇÃO PADRÃO DO SITE -->
-  <header>
-    <div class="menu-container">
-      <div class="logo">🐾 PetCare</div>
-      <nav>
-        <ul>
-          <li><a href="{{ url_for('home') }}">Início</a></li>
-          <li><a href="{{ url_for('listar_clientes') }}">Clientes</a></li>
-          <li><a href="{{ url_for('listar_pets') }}">Pets</a></li>
-          <li><a href="{{ url_for('listar_agendamentos') }}">Agendamentos</a></li>
-          <li><a href="{{ url_for('financas') }}">Finanças</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
+    <!-- Peso -->
+    <label for="peso">Peso:</label>
+    <input type="number" id="peso" name="peso" required>
 
-  <!-- CONTEÚDO PRINCIPAL COM O FORMULÁRIO PARA CADASTRAR UM NOVO CLIENTE -->
-  <main class="conteudo">
-    <h2>Novo Pet</h2>
-
-    <!-- Formulário de cadastro de cliente. Enviado via método POST -->
-    <form action="{{ url_for('novo_pet') }}" method="POST" class="formulario">
-
-      <!-- Nome do Cliente -->
-      <label for="nome_pet">Nome do Pet:</label>
-      <input type="text" id="nome_pet" name="nome_pet" required>
-
-      <!-- Nome do Pet relacionado ao cliente -->
-      <label for="nome_cliente">Nome do Cliente:</label>
-      <input type="text" id="nome_cliente" name="nome_cliente" required>
-
-      <!-- Telefone de contato -->
-      <label for="raca">Raça:</label>
-      <input type="text" id="raca" name="raca" required>
-
-      <!-- Email do cliente -->
-      <label for="idade">Idade:</label>
-      <input type="number" id="idade" name="idade" required>
-
-      <!-- Endereço do cliente -->
-      <label for="peso">Peso:</label>
-      <input type="number" name="peso" rows="4" required>
-
-      <!-- Botão para enviar o formulário -->
-      <button type="submit" class="botao">Salvar Pet</button>
-    </form>
-  </main>
-
-  <!-- RODAPÉ PADRÃO COM REDES SOCIAIS -->
-  <footer>
-    <div class="footer-container">
-      <p>&copy; 2025 PetCare. Todos os direitos reservados.</p>
-      <div class="redes">
-        <a href="#"><i class="fab fa-instagram"></i></a>
-        <a href="#"><i class="fab fa-facebook"></i></a>
-        <a href="#"><i class="fab fa-whatsapp"></i></a>
-      </div>
-    </div>
-  </footer>
-
-</body>
-</html>
+    <!-- Botão -->
+    <button type="submit" class="botao">Salvar Pet</button>
+  </form>
+</main>
+{% endblock %}

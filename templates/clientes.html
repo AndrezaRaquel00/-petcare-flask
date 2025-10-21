@@ -1,101 +1,45 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-  <meta charset="UTF-8">
-  <title>Clientes | PetCare</title>
+{% extends 'base.html' %}
 
-  <!-- Ícone que aparece na aba do navegador -->
-  <link rel="icon" type="image/png" href="{{ url_for('static', filename='imagens/favicon4.png') }}">
+{% block content %}
+<main class="conteudo">
+  <h2>Clientes</h2>
 
-  <!-- Estilos gerais e específicos da página -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style-agendamentos.css') }}">
+  <!-- Botão centralizado para adicionar novo cliente -->
+  <div class="centro-botao">
+    <a href="/clientes/novo" class="botao adicionar">+ Novo Cliente</a>
+  </div>
 
-  <!-- Fonte do Google -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
-
-  <!-- Ícones da FontAwesome -->
-  <script src="https://kit.fontawesome.com/99c29731df.js" crossorigin="anonymous"></script>
-
-  <!-- Responsividade para dispositivos móveis -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body>
-
-  <!-- MENU DE NAVEGAÇÃO -->
-  <header>
-    <div class="menu-container">
-      <div class="logo">🐾 PetCare</div>
-      <nav>
-        <ul>
-          <!-- Links para outras páginas do site -->
-          <li><a href="{{ url_for('home') }}">Início</a></li>
-          <li><a href="{{ url_for('listar_clientes') }}">Clientes</a></li>
-          <li><a href="{{ url_for('listar_pets') }}">Pets</a></li>
-          <li><a href="{{ url_for('listar_agendamentos') }}">Agendamentos</a></li>
-          <li><a href="{{ url_for('financas') }}">Finanças</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
-
-  <!-- CONTEÚDO PRINCIPAL DA PÁGINA -->
-  <main class="conteudo">
-    <h2>Clientes</h2>
-
-    <!-- Botão centralizado para adicionar novo cliente -->
-    <div class="centro-botao">
-      <a href="/clientes/novo" class="botao adicionar">+ Novo Cliente</a>
-    </div>
-
-    <!-- TABELA DE CLIENTES -->
-    <div class="tabela-container">
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Cliente</th>
-            <th>Pet</th>
-            <th>Telefone</th>
-            <th>Email</th>
-            <th>Endereço</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Laço que exibe os dados de cada cliente do banco -->
-          {% for cliente in clientes %}
-          <tr>
-            <td>{{ cliente[0] }}</td> <!-- ID -->
-            <td>{{ cliente[1] }}</td> <!-- Nome do Cliente -->
-            <td>{{ cliente[2] }}</td> <!-- Nome do Pet -->
-            <td>{{ cliente[3] }}</td> <!-- Telefone -->
-            <td>{{ cliente[4] }}</td> <!-- Email -->
-            <td>{{ cliente[5] }}</td> <!-- Endereço -->
-            <td class="acoes">
-              <!-- Botões de ação: Editar e Excluir -->
-              <a href="/clientes/editar/{{ cliente[0] }}" class="botao-editar">Editar</a>
-              <a href="/clientes/excluir/{{ cliente[0] }}" class="botao-excluir" onclick="return confirm('Deseja excluir este cliente?');">Excluir</a>
-            </td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
-  </main>
-
-  <!-- RODAPÉ -->
-  <footer>
-    <div class="footer-container">
-      <p>&copy; 2025 PetCare. Todos os direitos reservados.</p>
-      <div class="redes">
-        <!-- Ícones das redes sociais -->
-        <a href="#"><i class="fab fa-instagram"></i></a>
-        <a href="#"><i class="fab fa-facebook"></i></a>
-        <a href="#"><i class="fab fa-whatsapp"></i></a>
-      </div>
-    </div>
-  </footer>
-
-</body>
-</html>
+  <!-- TABELA DE CLIENTES -->
+  <div class="tabela-container">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Cliente</th>
+          <th>Pet</th>
+          <th>Telefone</th>
+          <th>Email</th>
+          <th>Endereço</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for cliente in clientes %}
+        <tr>
+          <td>{{ cliente[0] }}</td>
+          <td>{{ cliente[1] }}</td>
+          <td>{{ cliente[2] }}</td>
+          <td>{{ cliente[3] }}</td>
+          <td>{{ cliente[4] }}</td>
+          <td>{{ cliente[5] }}</td>
+          <td class="acoes">
+            <a href="/clientes/editar/{{ cliente[0] }}" class="botao-editar">Editar</a>
+            <a href="/clientes/excluir/{{ cliente[0] }}" class="botao-excluir" onclick="return confirm('Deseja excluir este cliente?');">Excluir</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</main>
+{% endblock %}

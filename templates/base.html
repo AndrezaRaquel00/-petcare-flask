@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>PetCare</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/style-novo_agendamento.css') }}">
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='imagens/favicon4.png') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style-agendamentos.css') }}">
+</head>
+
+<body>
+  <!-- Aqui fica o menu do site -->
+  {% include 'menu.html' %}
+
+  <!-- Aqui entra o conteúdo de cada página -->
+  {% block content %}{% endblock %}
+
+  <!-- Aqui fica o rodapé -->
+  {% include 'footer.html' %}
+
+  <!-- E aqui entra o chatbot (PetBot) -->
+  {% include 'chatbot.html' %}
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const slides = document.querySelectorAll(".slideshow img");
+    if (slides.length > 0) {
+      let current = 0;
+      function nextSlide() {
+        slides[current].classList.remove("active");
+        current = (current + 1) % slides.length;
+        slides[current].classList.add("active");
+      }
+      setInterval(nextSlide, 3000);
+    }
+  });
+</script>
+
+
+
+</body>
+</html>

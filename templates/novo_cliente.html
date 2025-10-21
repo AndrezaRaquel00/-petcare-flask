@@ -1,89 +1,35 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-  <meta charset="UTF-8">
-  <title>Novo Cliente | PetCare</title>
+{% extends "base.html" %}
 
-  <!-- Ícone da aba do navegador -->
-  <link rel="icon" type="image/png" href="{{ url_for('static', filename='imagens/favicon4.png') }}">
+{% block title %}Novo Cliente | PetCare{% endblock %}
 
-  <!-- CSS principal do projeto -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+{% block content %}
+<main class="conteudo">
+  <h2>Novo Cliente</h2>
 
-  <!-- CSS específico para formulários como este -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style-novo_agendamento.css') }}">
+  <form action="{{ url_for('novo_cliente') }}" method="POST" class="formulario">
 
-  <!-- Fonte Montserrat para estilização da tipografia -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Nome do Cliente -->
+    <label for="nome_cliente">Nome do Cliente:</label>
+    <input type="text" id="nome_cliente" name="nome_cliente" required>
 
-  <!-- Ícones do FontAwesome -->
-  <script src="https://kit.fontawesome.com/99c29731df.js" crossorigin="anonymous"></script>
+    <!-- Nome do Pet relacionado ao cliente -->
+    <label for="nome_pet">Nome do Pet:</label>
+    <input type="text" id="nome_pet" name="nome_pet" required>
 
-  <!-- Responsividade para dispositivos móveis -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
+    <!-- Telefone de contato -->
+    <label for="telefone">Telefone:</label>
+    <input type="number" id="telefone" name="telefone" required>
 
-<body>
+    <!-- Email do cliente -->
+    <label for="email">E-mail:</label>
+    <input type="text" id="email" name="email" required>
 
-  <!-- MENU DE NAVEGAÇÃO PADRÃO DO SITE -->
-  <header>
-    <div class="menu-container">
-      <div class="logo">🐾 PetCare</div>
-      <nav>
-        <ul>
-          <li><a href="{{ url_for('home') }}">Início</a></li>
-          <li><a href="{{ url_for('listar_clientes') }}">Clientes</a></li>
-          <li><a href="{{ url_for('listar_pets') }}">Pets</a></li>
-          <li><a href="{{ url_for('listar_agendamentos') }}">Agendamentos</a></li>
-          <li><a href="{{ url_for('financas') }}">Finanças</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
+    <!-- Endereço do cliente -->
+    <label for="endereco">Endereço:</label>
+    <textarea id="endereco" name="endereco" rows="4"></textarea>
 
-  <!-- CONTEÚDO PRINCIPAL COM O FORMULÁRIO PARA CADASTRAR UM NOVO CLIENTE -->
-  <main class="conteudo">
-    <h2>Novo Cliente</h2>
-
-    <!-- Formulário de cadastro de cliente. Enviado via método POST -->
-    <form action="{{ url_for('novo_cliente') }}" method="POST" class="formulario">
-
-      <!-- Nome do Cliente -->
-      <label for="nome_cliente">Nome do Cliente:</label>
-      <input type="text" id="nome_cliente" name="nome_cliente" required>
-
-      <!-- Nome do Pet relacionado ao cliente -->
-      <label for="nome_pet">Nome do Pet:</label>
-      <input type="text" id="nome_pet" name="nome_pet" required>
-
-      <!-- Telefone de contato -->
-      <label for="telefone">Telefone:</label>
-      <input type="number" id="telefone" name="telefone" required>
-
-      <!-- Email do cliente -->
-      <label for="email">E-mail:</label>
-      <input type="text" id="email" name="email" required>
-
-      <!-- Endereço do cliente -->
-      <label for="endereco">Endereço:</label>
-      <textarea id="endereco" name="endereco" rows="4"></textarea>
-
-      <!-- Botão para enviar o formulário -->
-      <button type="submit" class="botao">Salvar Cliente</button>
-    </form>
-  </main>
-
-  <!-- RODAPÉ PADRÃO COM REDES SOCIAIS -->
-  <footer>
-    <div class="footer-container">
-      <p>&copy; 2025 PetCare. Todos os direitos reservados.</p>
-      <div class="redes">
-        <a href="#"><i class="fab fa-instagram"></i></a>
-        <a href="#"><i class="fab fa-facebook"></i></a>
-        <a href="#"><i class="fab fa-whatsapp"></i></a>
-      </div>
-    </div>
-  </footer>
-
-</body>
-</html>
+    <!-- Botão para enviar o formulário -->
+    <button type="submit" class="botao">Salvar Cliente</button>
+  </form>
+</main>
+{% endblock %}

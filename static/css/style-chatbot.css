@@ -1,0 +1,96 @@
+#petbot-widget {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 1000;
+  font-family: 'Montserrat', sans-serif;
+}
+
+#petbot-toggle {
+  width: 56px;
+  height: 56px;
+  background: #7ADCB3;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+#petbot-window {
+  width: 340px;
+  max-height: 480px;
+  background: white;
+  border-radius: 10px;
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+.petbot-header {
+  background: #2F8F6D;
+  color: white;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.petbot-name {
+  font-weight: 700;
+}
+
+.messages {
+  padding: 12px;
+  flex: 1;
+  overflow: auto;
+  background: #f7f9f8;
+}
+
+.message {
+  padding: 8px 10px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  max-width: 85%;
+  word-wrap: break-word;
+}
+
+.message.bot {
+  background: #fff;
+  align-self: flex-start;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.message.user {
+  background: #7ADCB3;
+  color: white;
+  align-self: flex-end;
+}
+
+.petbot-input {
+  display: flex;
+  gap: 8px;
+  padding: 10px;
+  background: #fff;
+  border-top: 1px solid #eee;
+}
+
+.petbot-input input {
+  flex: 1;
+  padding: 8px 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+.petbot-input button {
+  background: #2F8F6D;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}

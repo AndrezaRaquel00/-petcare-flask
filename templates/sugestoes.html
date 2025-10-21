@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}Sugestões | PetCare{% endblock %}
+
+{% block content %}
+<main class="conteudo">
+  <h2>Sugestões para este agendamento</h2>
+
+  <p><strong>Pet:</strong> {{ nome_pet }} &nbsp; | &nbsp; <strong>Serviço:</strong> {{ tipo_servico }}</p>
+
+  <section>
+    {% if sugestoes and sugestoes|length > 0 %}
+      <ul style="list-style: none; padding: 0; margin-top: 16px;">
+        {% for s in sugestoes if s.titulo %}
+          <li style="background:#fff; padding:12px; border-radius:8px; margin-bottom:10px; box-shadow:0 0 6px rgba(0,0,0,0.05);">
+            <strong>{{ s.titulo }}</strong><br>
+            <small style="color:#666">{{ s.descricao if s.descricao else "" }}</small>
+            <div style="margin-top:8px;">
+              <form action="{{ url_for('adicionar_item', id_agendamento=id_agendamento) }}" method="POST">
+                <input type="hidden" name="titulo" value="{{ s.titulo }}">
+                <input type="hidden" name="descricao" value="{{ s.descricao }}">
+                <button type="submit" class="botao">Adicionar ao atendimento</button>
+              </form>
+
+              <span id="status-{{ loop.index0 }}" style="margin-left:8px;color:green;"></span>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>Sem sugestões no momento.</p>
+    {% endif %}
+  </section>
+
+  <div style="margin-top:20px;">
+    <a href="{{ url_for('listar_agendamentos') }}" class="botao">Voltar para Agendamentos</a>
+  </div>
+</main>
+
+<script>
+async function adicionarItem(id_agendamento, titulo, descricao){
+  try {
+   const res = await fetch(`/agendamentos/${id_agendamento}/adicionar_item`, {
+      method: "POST",
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ titulo: titulo, descricao: descricao })
+    });
+    const data = await res.json();
+    if(data.status === 'ok'){
+      alert("Item adicionado: " + data.titulo);
+    } else {
+      alert("Erro: " + (data.message || "erro desconhecido"));
+    }
+  } catch(e) {
+    console.error(e);
+    alert("Erro de conexão com o servidor.");
+  }
+}
+</script>
+{% endblock %}

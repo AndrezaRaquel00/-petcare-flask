@@ -1,105 +1,51 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-  <meta charset="UTF-8">
-  <title>Agendamentos | PetCare</title>
+{% extends 'agendamentosbase.html' %}
 
-  <!-- Ícone que aparece na aba do navegador -->
-  <link rel="icon" type="image/png" href="{{ url_for('static', filename='imagens/favicon4.png') }}">
+{% block content %}
+<main class="conteudo">
+  <h2>Agendamentos</h2>
 
-  <!-- CSS principal e específico da página -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style-agendamentos.css') }}">
+  <!-- Botão centralizado para adicionar novo agendamento -->
+  <div class="centro-botao">
+    <a href="{{ url_for('novo_agendamento') }}" class="botao adicionar">+ Novo Agendamento</a>
+  </div>
 
-  <!-- Fonte personalizada -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <!-- TABELA DE AGENDAMENTOS -->
+  <div class="tabela-container">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Cliente</th>
+          <th>Pet</th>
+          <th>Serviço</th>
+          <th>Data</th>
+          <th>Horário</th>
+          <th>Observações</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for agendamento in agendamentos %}
+        <tr>
+          <td>{{ agendamento[0] }}</td>
+          <td>{{ agendamento[1] }}</td>
+          <td>{{ agendamento[2] }}</td>
+          <td>{{ agendamento[3] }}</td>
+          <td>{{ agendamento[4] }}</td>
+          <td>{{ agendamento[5] }}</td>
+          <td>{{ agendamento[6] }}</td>
+          <td class="acoes">
+            <a href="/agendamentos/editar/{{ agendamento[0] }}" class="botao-editar">Editar</a>
+            <a href="/agendamentos/excluir/{{ agendamento[0] }}" class="botao-excluir" onclick="return confirm('Deseja excluir este agendamento?');">Excluir</a>
+            <a href="{{ url_for('ver_agendamento', id=agendamento[0]) }}" class="botao-ver">Detalhes</a>
+            <a href="{{ url_for('sugestoes_agendamento', id_agendamento=agendamento[0]) }}" class="botao-ver">Sugestões</a>
 
-  <!-- Biblioteca de ícones -->
-  <script src="https://kit.fontawesome.com/99c29731df.js" crossorigin="anonymous"></script>
+          </td>
 
-  <!-- Responsividade -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body>
-
-  <!-- MENU SUPERIOR -->
-  <header>
-    <div class="menu-container">
-      <div class="logo">🐾 PetCare</div>
-      <nav>
-        <ul>
-          <!-- Links para navegação entre páginas -->
-          <li><a href="{{ url_for('home') }}">Início</a></li>
-          <li><a href="{{ url_for('listar_clientes') }}">Clientes</a></li>
-          <li><a href="{{ url_for('listar_pets') }}">Pets</a></li>
-          <li><a href="{{ url_for('listar_agendamentos') }}">Agendamentos</a></li>
-          <li><a href="{{ url_for('financas') }}">Finanças</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
-
-  <!-- CONTEÚDO PRINCIPAL -->
-  <main class="conteudo">
-    <h2>Agendamentos</h2>
-
-    <!-- Botão centralizado para adicionar novo agendamento -->
-    <div class="centro-botao">
-      <a href="/agendamentos/novo" class="botao adicionar">+ Novo Agendamento</a>
-    </div>
-
-    <!-- TABELA DE AGENDAMENTOS -->
-    <div class="tabela-container">
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Cliente</th>
-            <th>Pet</th>
-            <th>Serviço</th>
-            <th>Data</th>
-            <th>Horário</th>
-            <th>Observações</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Loop para exibir todos os agendamentos vindos do backend -->
-          {% for agendamento in agendamentos %}
-          <tr>
-            <td>{{ agendamento[0] }}</td>
-            <td>{{ agendamento[1] }}</td>
-            <td>{{ agendamento[2] }}</td>
-            <td>{{ agendamento[3] }}</td>
-            <td>{{ agendamento[4] }}</td>
-            <td>{{ agendamento[5] }}</td>
-            <td>{{ agendamento[6] }}</td>
-            <td class="acoes">
-              <!-- Botões de ação para editar ou excluir -->
-              <a href="/agendamentos/editar/{{ agendamento[0] }}" class="botao-editar">Editar</a>
-              <a href="/agendamentos/excluir/{{ agendamento[0] }}" class="botao-excluir" onclick="return confirm('Tem certeza que deseja excluir este agendamento?');">Excluir</a>
-            </td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
-  </main>
-
-  <br><br>
-
-  <!-- RODAPÉ -->
-  <footer>
-    <div class="footer-container">
-      <p>&copy; 2025 PetCare. Todos os direitos reservados.</p>
-      <div class="redes">
-        <!-- Ícones de redes sociais -->
-        <a href="#"><i class="fab fa-instagram"></i></a>
-        <a href="#"><i class="fab fa-facebook"></i></a>
-        <a href="#"><i class="fab fa-whatsapp"></i></a>
-      </div>
-    </div>
-  </footer>
-
-</body>
-</html>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</main>
+{% endblock %}

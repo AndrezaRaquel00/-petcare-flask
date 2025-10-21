@@ -1,0 +1,109 @@
+<!-- Chat widget (PetBot) -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style-chatbot.css') }}">
+
+<div id="petbot-widget">
+  <div id="petbot-toggle" title="Abrir PetBot">🐾</div>
+  <div id="petbot-window" style="display:none;">
+    <div class="petbot-header">
+      <span class="petbot-name">PetBot 🐾</span>
+      <button id="petbot-close">✕</button>
+    </div>
+    <div id="petbot-messages" class="messages"></div>
+    <div class="petbot-input">
+      <input id="petbot-text" type="text" placeholder="Escreva aqui... ex: agd banho 15h Bolt">
+      <button id="petbot-send">Enviar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // === Função para adicionar mensagens na tela ===
+  function addMessage(text, sender) {
+    const messagesDiv = document.getElementById('petbot-messages');
+    const msgEl = document.createElement('div');
+    msgEl.classList.add('message', sender);
+    msgEl.textContent = text;
+    messagesDiv.appendChild(msgEl);
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+  }
+
+  // === Abre/fecha o chat ===
+  const toggle = document.getElementById('petbot-toggle');
+  const windowEl = document.getElementById('petbot-window');
+  const closeBtn = document.getElementById('petbot-close');
+
+  toggle.onclick = () => { windowEl.style.display = 'flex'; };
+  closeBtn.onclick = () => { windowEl.style.display = 'none'; };
+
+  // === Envia mensagem ao servidor ===
+ // === Envia mensagem ao servidor ===
+async function sendToServer(text) {
+  addMessage(text, 'user');
+  const payload = { message: text };
+  let route = '/api/chat_simple'; // padrão
+  const lower = text.toLowerCase();
+
+  // 1️⃣ saudações -> /api/chat_simple
+  if (["oi","olá","ola","bom dia","boa tarde","boa noite","eai","fala"].some(s=> lower.includes(s))) {
+    route = '/api/chat_simple';
+  }
+  // 2️⃣ ações (agendar/cadastrar/criar/registrar)
+  else if (
+    lower.includes('agendar') ||
+    lower.includes('cadastrar') ||
+    lower.includes('criar') ||
+    lower.includes('registrar') ||
+    lower.includes('agd') ||
+    lower.includes('marcar')
+  ) {
+    route = '/api/chat_acoes';
+  }
+  // 3️⃣ consultas e relatórios
+  else if (
+    lower.includes('banho') ||
+    lower.includes('tosa') ||
+    lower.includes('consulta') ||
+    lower.includes('vacina') ||
+    lower.includes('pet') ||
+    lower.includes('listar') ||
+    lower.includes('quantos') ||
+    lower.includes('próximo') || lower.includes('proximo') || lower.includes('hoje')
+  ) {
+    route = '/api/chat_simple'; // 🔹 Aqui também muda pra chat_simple
+  }
+
+  try {
+    const res = await fetch(route, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    const data = await res.json();
+
+    if (data.reply) {
+      addMessage(data.reply, 'bot');
+    } else if (data.response) {
+      addMessage(data.response, 'bot');
+    } else {
+      addMessage("Resposta inesperada do servidor.", 'bot');
+    }
+  } catch (e) {
+    addMessage("Erro de conexão com o servidor. Tente novamente.", 'bot');
+    console.error(e);
+  }
+}
+
+  // === Eventos do botão e tecla Enter ===
+  document.getElementById('petbot-send').onclick = async () => {
+    const input = document.getElementById('petbot-text');
+    const text = input.value.trim();
+    if (!text) return;
+    input.value = "";
+    await sendToServer(text);
+  };
+
+  document.getElementById('petbot-text').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') document.getElementById('petbot-send').click();
+  });
+</script>
+

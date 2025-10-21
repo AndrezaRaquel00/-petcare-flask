@@ -1,97 +1,38 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-  <meta charset="UTF-8">
-  <title>Novo Agendamento | PetCare</title>
+{% extends "base.html" %}
 
-  <!-- Ícone da aba do navegador -->
-  <link rel="icon" type="image/png" href="{{ url_for('static', filename='imagens/favicon4.png') }}">
+{% block title %}Novo Agendamento | PetCare{% endblock %}
 
-  <!-- Arquivos de estilo principais -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style-novo_agendamento.css') }}">
+{% block content %}
+<main class="conteudo">
+  <h2>Novo Agendamento</h2>
 
-  <!-- Fonte Montserrat do Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <form action="{{ url_for('novo_agendamento') }}" method="POST" class="formulario">
 
-  <!-- Ícones do FontAwesome -->
-  <script src="https://kit.fontawesome.com/99c29731df.js" crossorigin="anonymous"></script>
+    <label for="nome_cliente">Nome do Cliente:</label>
+    <input type="text" id="nome_cliente" name="nome_cliente" required>
 
-  <!-- Responsividade para dispositivos móveis -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
+    <label for="nome_pet">Nome do Pet:</label>
+    <input type="text" id="nome_pet" name="nome_pet" required>
 
-<body>
+    <label for="tipo_servico">Tipo de Serviço:</label>
+    <select id="tipo_servico" name="tipo_servico" required>
+      <option value="">Selecione</option>
+      <option value="Banho">Banho</option>
+      <option value="Tosa">Tosa</option>
+      <option value="Consulta">Consulta</option>
+      <option value="Vacinação">Vacinação</option>
+    </select>
 
-  <!-- MENU PADRÃO COM LINKS PARA AS OUTRAS PÁGINAS -->
-  <header>
-    <div class="menu-container">
-      <div class="logo">🐾 PetCare</div>
-      <nav>
-        <ul>
-          <li><a href="{{ url_for('home') }}">Início</a></li>
-          <li><a href="{{ url_for('listar_clientes') }}">Clientes</a></li>
-          <li><a href="{{ url_for('listar_pets') }}">Pets</a></li>
-          <li><a href="{{ url_for('listar_agendamentos') }}">Agendamentos</a></li>
-          <li><a href="{{ url_for('financas') }}">Finanças</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
+    <label for="data">Data:</label>
+    <input type="date" id="data" name="data" required>
 
-  <!-- CONTEÚDO PRINCIPAL COM FORMULÁRIO DE AGENDAMENTO -->
-  <main class="conteudo">
-    <h2>Novo Agendamento</h2>
+    <label for="horario">Horário:</label>
+    <input type="time" id="horario" name="horario" required>
 
-    <!-- Formulário para criação de novo agendamento -->
-    <form action="{{ url_for('novo_agendamento') }}" method="POST" class="formulario">
+    <label for="observacoes">Observações:</label>
+    <textarea id="observacoes" name="observacoes" rows="4"></textarea>
 
-      <!-- Campo: Nome do Cliente -->
-      <label for="nome_cliente">Nome do Cliente:</label>
-      <input type="text" id="nome_cliente" name="nome_cliente" required>
-
-      <!-- Campo: Nome do Pet -->
-      <label for="nome_pet">Nome do Pet:</label>
-      <input type="text" id="nome_pet" name="nome_pet" required>
-
-      <!-- Campo: Tipo de Serviço (seleção) -->
-      <label for="tipo_servico">Tipo de Serviço:</label>
-      <select id="tipo_servico" name="tipo_servico" required>
-        <option value="">Selecione</option>
-        <option value="Banho">Banho</option>
-        <option value="Tosa">Tosa</option>
-        <option value="Consulta">Consulta</option>
-        <option value="Vacinação">Vacinação</option>
-      </select>
-
-      <!-- Campo: Data -->
-      <label for="data">Data:</label>
-      <input type="date" id="data" name="data" required>
-
-      <!-- Campo: Horário -->
-      <label for="horario">Horário:</label>
-      <input type="time" id="horario" name="horario" required>
-
-      <!-- Campo: Observações -->
-      <label for="observacoes">Observações:</label>
-      <textarea id="observacoes" name="observacoes" rows="4"></textarea>
-
-      <!-- Botão de envio do formulário -->
-      <button type="submit" class="botao">Salvar Agendamento</button>
-    </form>
-  </main>
-
-  <!-- RODAPÉ COM DIREITOS E REDES SOCIAIS -->
-  <footer>
-    <div class="footer-container">
-      <p>&copy; 2025 PetCare. Todos os direitos reservados.</p>
-      <div class="redes">
-        <a href="#"><i class="fab fa-instagram"></i></a>
-        <a href="#"><i class="fab fa-facebook"></i></a>
-        <a href="#"><i class="fab fa-whatsapp"></i></a>
-      </div>
-    </div>
-  </footer>
-
-</body>
-</html>
+    <button type="submit" class="botao">Salvar Agendamento</button>
+  </form>
+</main>
+{% endblock %}

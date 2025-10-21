@@ -1,158 +1,107 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-  <meta charset="UTF-8">
-  <title>Finanças | PetCare</title>
+{% extends 'base.html' %}
 
-  <!-- Ícone da aba do navegador -->
-  <link rel="icon" type="image/png" href="{{ url_for('static', filename='imagens/favicon4.png') }}">
+{% block content %}
+<main class="conteudo">
 
-  <!-- Estilos principais -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style-agendamentos.css') }}">
+  <!-- Título da seção de relatórios -->
+  <h2 class="titulo-secao">Relatórios</h2>
 
-  <!-- Responsividade -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- Ícones do FontAwesome -->
-  <script src="https://kit.fontawesome.com/99c29731df.js" crossorigin="anonymous"></script>
-
-  <!-- Biblioteca Chart.js para gráficos -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</head>
-<body>
-
-  <!-- MENU DE NAVEGAÇÃO -->
-  <header>
-    <div class="menu-container">
-      <div class="logo">🐾 PetCare</div>
-      <nav>
-       <ul>
-        <li><a href="{{ url_for('home') }}">Início</a></li>
-        <li><a href="{{ url_for('listar_clientes') }}">Clientes</a></li>
-        <li><a href="{{ url_for('listar_pets') }}">Pets</a></li>
-        <li><a href="{{ url_for('listar_agendamentos') }}">Agendamentos</a></li>
-        <li><a href="{{ url_for('financas') }}">Finanças</a></li>
-       </ul>
-      </nav>
+  <!-- Cartões com números totais -->
+  <div class="cards-relatorio">
+    <div class="card">
+      <h3>Total de Clientes</h3>
+      <p>{{ total_clientes }}</p>
     </div>
-  </header>
+    <div class="card">
+      <h3>Total de Pets</h3>
+      <p>{{ total_pets }}</p>
+    </div>
+    <div class="card">
+      <h3>Total de Agendamentos</h3>
+      <p>{{ total_agendamentos }}</p>
+    </div>
+  </div>
 
-  <!-- CONTEÚDO PRINCIPAL -->
-  <main class="conteudo">
+  <br><br>
 
-    <!-- Título da seção de relatórios -->
-    <h2 class="titulo-secao">Relatórios</h2>
-
-    <!-- Cartões com números totais -->
-    <div class="cards-relatorio">
-      <div class="card">
-        <h3>Total de Clientes</h3>
-        <p>{{ total_clientes }}</p>
+  <!-- SERVIÇOS OFERECIDOS -->
+  <section class="servicos-horizontal">
+    <h2 class="titulo-secao">Serviços Oferecidos</h2>
+    <div class="cards-servicos">
+      <div class="card-servico">
+        <h3>Banho</h3>
+        <p>R$ 40,00</p>
+        <p>Duração: 50 min</p>
       </div>
-      <div class="card">
-        <h3>Total de Pets</h3>
-        <p>{{ total_pets }}</p>
+      <div class="card-servico">
+        <h3>Tosa Completa</h3>
+        <p>R$ 80,00</p>
+        <p>Duração: 1h30min</p>
       </div>
-      <div class="card">
-        <h3>Total de Agendamentos</h3>
-        <p>{{ total_agendamentos }}</p>
+      <div class="card-servico">
+        <h3>Consulta</h3>
+        <p>R$ 100,00</p>
+        <p>Veterinária</p>
+      </div>
+      <div class="card-servico">
+        <h3>Vacinação</h3>
+        <p>R$ 70,00</p>
+        <p>Por dose</p>
       </div>
     </div>
+  </section>
 
-    <br><br>
+  <br><br>
 
-    <!-- SERVIÇOS OFERECIDOS -->
-    <section class="servicos-horizontal">
-      <h2 class="titulo-secao">Serviços Oferecidos</h2>
-      <div class="cards-servicos">
-        <div class="card-servico">
-          <h3>Banho</h3>
-          <p>R$ 40,00</p>
-          <p>Duração: 50 min</p>
-        </div>
-        <div class="card-servico">
-          <h3>Tosa Completa</h3>
-          <p>R$ 80,00</p>
-          <p>Duração: 1h:30min</p>
-        </div>
-        <div class="card-servico">
-          <h3>Consulta</h3>
-          <p>R$ 100,00</p>
-          <p>Veterinária</p>
-        </div>
-        <div class="card-servico">
-          <h3>Vacinação</h3>
-          <p>R$ 70,00</p>
-          <p>Por dose</p>
-        </div>
-      </div>
-    </section>
-
-    <br><br>
-
-    <!-- GRÁFICO DE PIZZA - serviços mais procurados -->
-    <section class="grafico">
-      <h2>Serviços Mais Procurados</h2>
-      <div style="max-width: 300px; margin: 0 auto;">
-        <canvas id="graficoPizza"></canvas>
-      </div>
-    </section>
-
-    <br><br><br>
-
-    <!-- TABELA DE LUCROS -->
-    <section class="lucros">
-      <h2 class="titulo-secao">Lucros da Empresa</h2>
-      <table class="tabela-lucros">
-        <thead>
-          <tr>
-            <th>Tipo</th>
-            <th>Valor Total (R$)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Lucro Total</td>
-            <td>R$ {{ lucro_total }}</td>
-          </tr>
-          <tr>
-            <td>Lucro com Agendamentos Futuros</td>
-            <td>R$ {{ lucro_futuro }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
-
-  </main>
-
-  <!-- SCRIPT DO GRÁFICO -->
-  <script>
-    const ctx = document.getElementById('graficoPizza').getContext('2d');
-    const graficoPizza = new Chart(ctx, {
-      type: 'pie',
-      data: {
-        labels: {{ tipos | tojson }}, // Tipos de serviços (ex: Banho, Tosa...)
-        datasets: [{
-          label: 'Agendamentos por tipo de serviço',
-          data: {{ contagens | tojson }}, // Quantidade por tipo
-          backgroundColor: ['#7ADCB3', '#2F8F6D', '#F2F2F2', '#FFC107', '#FF6384', '#36A2EB']
-        }]
-      }
-    });
-  </script>
-
-  <!-- RODAPÉ -->
-  <footer>
-    <div class="footer-container">
-      <p>&copy; 2025 PetCare. Todos os direitos reservados.</p>
-      <div class="redes">
-        <a href="#"><i class="fab fa-instagram"></i></a>
-        <a href="#"><i class="fab fa-facebook"></i></a>
-        <a href="#"><i class="fab fa-whatsapp"></i></a>
-      </div>
+  <!-- GRÁFICO DE PIZZA -->
+  <section class="grafico">
+    <h2>Serviços Mais Procurados</h2>
+    <div style="max-width: 300px; margin: 0 auto;">
+      <canvas id="graficoPizza"></canvas>
     </div>
-  </footer>
+  </section>
 
-</body>
-</html>
+  <br><br><br>
+
+  <!-- TABELA DE LUCROS -->
+  <section class="lucros">
+    <h2 class="titulo-secao">Lucros da Empresa</h2>
+    <table class="tabela-lucros">
+      <thead>
+        <tr>
+          <th>Tipo</th>
+          <th>Valor Total (R$)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Lucro Total</td>
+          <td>R$ {{ lucro_total }}</td>
+        </tr>
+        <tr>
+          <td>Lucro com Agendamentos Futuros</td>
+          <td>R$ {{ lucro_futuro }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+</main>
+
+<!-- SCRIPT DO GRÁFICO -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const ctx = document.getElementById('graficoPizza').getContext('2d');
+  new Chart(ctx, {
+    type: 'pie',
+    data: {
+      labels: {{ tipos | tojson }},
+      datasets: [{
+        label: 'Agendamentos por tipo de serviço',
+        data: {{ contagens | tojson }},
+        backgroundColor: ['#7ADCB3', '#2F8F6D', '#F2F2F2', '#FFC107', '#FF6384', '#36A2EB']
+      }]
+    }
+  });
+</script>
+{% endblock %}

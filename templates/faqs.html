@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Perguntas Frequentes | PetCare{% endblock %}
+
+{% block content %}
+<main class="conteudo">
+  <h2>Perguntas Frequentes 🐾</h2>
+  <p>Aqui estão as dúvidas mais comuns dos funcionários sobre o sistema PetCare:</p>
+
+  <div class="tabela-container" style="max-width:700px;margin:auto;">
+    <ul style="list-style:none;padding:0;">
+
+      <li style="background:#fff;padding:16px;margin-bottom:12px;border-radius:8px;box-shadow:0 0 6px rgba(0,0,0,0.05);">
+        <strong>Como cadastrar um novo cliente?</strong><br>
+        Vá até o menu <em>Clientes</em> e clique em <em>“Novo Cliente”</em>. Preencha nome, telefone, e-mail e endereço.
+      </li>
+
+      <li style="background:#fff;padding:16px;margin-bottom:12px;border-radius:8px;box-shadow:0 0 6px rgba(0,0,0,0.05);">
+        <strong>Como cadastrar um novo pet?</strong><br>
+        No menu <em>Pets</em>, clique em <em>“Novo Pet”</em> e informe o nome, raça, idade e peso.
+      </li>
+
+      <li style="background:#fff;padding:16px;margin-bottom:12px;border-radius:8px;box-shadow:0 0 6px rgba(0,0,0,0.05);">
+        <strong>Como registrar um agendamento?</strong><br>
+        Vá até <em>Agendamentos → Novo Agendamento</em>, escolha o cliente, o pet, o tipo de serviço, a data e o horário.
+      </li>
+
+      <li style="background:#fff;padding:16px;margin-bottom:12px;border-radius:8px;box-shadow:0 0 6px rgba(0,0,0,0.05);">
+        <strong>Posso editar ou cancelar um agendamento?</strong><br>
+        Sim! Acesse <em>Agendamentos</em>, encontre o registro desejado e clique em <em>“Editar”</em> ou <em>“Excluir”</em>.
+      </li>
+
+      <li style="background:#fff;padding:16px;margin-bottom:12px;border-radius:8px;box-shadow:0 0 6px rgba(0,0,0,0.05);">
+        <strong>Como adicionar itens ao atendimento?</strong><br>
+        Dentro do agendamento, clique em <em>“Adicionar ao atendimento”</em> para registrar produtos ou serviços extras.
+      </li>
+
+      <li style="background:#fff;padding:16px;margin-bottom:12px;border-radius:8px;box-shadow:0 0 6px rgba(0,0,0,0.05);">
+        <strong>O que o PetBot pode fazer?</strong><br>
+        Ele pode te ajudar com dúvidas sobre cadastro, agendamentos, clientes e pets, além de lembrar os campos obrigatórios.
+      </li>
+
+      <li style="background:#fff;padding:16px;margin-bottom:12px;border-radius:8px;box-shadow:0 0 6px rgba(0,0,0,0.05);">
+        <strong>agendar banho amanhã às 15h para Laira</strong><br>
+      </li>
+
+      <li style="background:#fff;padding:16px;margin-bottom:12px;border-radius:8px;box-shadow:0 0 6px rgba(0,0,0,0.05);">
+        <strong>cadastrar pet Bolt, tutor André, raça Golden, idade 3, peso 20 kg</strong><br>
+      </li>
+      
+    
+    </ul>
+  </div>
+
+  <a href="/" class="botao" style="display:inline-block;margin-top:20px;">⬅ Voltar para o início</a>
+
+</main>
+{% endblock %}

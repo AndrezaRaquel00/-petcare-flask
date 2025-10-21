@@ -124,6 +124,7 @@ td.acoes {
   gap: 10px;
 }
 
+.botao-ver,
 .botao-editar,
 .botao-excluir {
   padding: 6px 12px;
@@ -133,6 +134,14 @@ td.acoes {
   color: white;
   font-weight: bold;
   transition: background 0.3s;
+}
+
+.botao-ver {
+  background-color: var(--verde-agua);
+}
+
+.botao-ver:hover {
+  background-color: var(--verde-agua);
 }
 
 .botao-editar {

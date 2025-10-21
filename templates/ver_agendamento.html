@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Agendamento #{{ agendamento[0] }} | PetCare{% endblock %}
+
+{% block content %}
+<main class="conteudo">
+  <h2>Agendamento #{{ agendamento[0] }}</h2>
+  <p><strong>Cliente:</strong> {{ agendamento[1] }}<br>
+     <strong>Pet:</strong> {{ agendamento[2] }}<br>
+     <strong>Serviço:</strong> {{ agendamento[3] }}<br>
+     <strong>Data:</strong> {{ agendamento[4] }}<br>
+     <strong>Horário:</strong> {{ agendamento[5] }}<br>
+     <strong>Observações:</strong> {{ agendamento[6] }}</p>
+
+  <h3 style="margin-top:20px;">Itens adicionados ao atendimento:</h3>
+
+  {% if itens and itens|length > 0 %}
+    <ul>
+      {% for item in itens %}
+        <li><strong>{{ item[0] }}</strong> – {{ item[1] }}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>Nenhum item adicionado ainda.</p>
+  {% endif %}
+
+  <a href="{{ url_for('listar_agendamentos') }}" class="botao" style="margin-top:25px; display:inline-block;">Voltar</a>
+</main>
+{% endblock %}
