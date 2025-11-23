@@ -4,9 +4,10 @@
   <meta charset="UTF-8">
   <title>PetCare</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-   <link rel="stylesheet" href="{{ url_for('static', filename='css/style-novo_agendamento.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style-novo_agendamento.css') }}">
   <link rel="icon" type="image/png" href="{{ url_for('static', filename='imagens/favicon4.png') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style-agendamentos.css') }}">
+  
 </head>
 
 <body>
@@ -22,22 +23,39 @@
   <!-- E aqui entra o chatbot (PetBot) -->
   {% include 'chatbot.html' %}
 
+  <script src="{{ url_for('static', filename='js/notificacoes.js') }}"></script>
+
+
+
+
+  </body>
+</html>
+
+
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function() {
     const slides = document.querySelectorAll(".slideshow img");
-    if (slides.length > 0) {
-      let current = 0;
-      function nextSlide() {
-        slides[current].classList.remove("active");
-        current = (current + 1) % slides.length;
-        slides[current].classList.add("active");
-      }
-      setInterval(nextSlide, 3000);
+
+    // Só roda slideshow se existirem 2 ou mais imagens
+    if (slides && slides.length >= 2) {
+
+        let current = 0;
+
+        function nextSlide() {
+            if (!slides[current]) return; // proteção extra
+            slides[current].classList.remove("active");
+
+            current = (current + 1) % slides.length;
+
+            if (!slides[current]) return; // proteção extra
+            slides[current].classList.add("active");
+        }
+
+        setInterval(nextSlide, 3000);
     }
-  });
+});
+
 </script>
 
 
 
-</body>
-</html>

@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+
+{% block title %}Previsões | PetCare{% endblock %}
+
+{% block content %}
+<main class="conteudo">
+  <h2>Previsões de Demanda</h2>
+
+  <div style="display:flex;flex-wrap:wrap;gap:20px;margin-top:16px;">
+    <!-- Trend chart -->
+    <div style="flex:1 1 620px; background:var(--branco); padding:18px; border-radius:10px; box-shadow:0 4px 10px rgba(0,0,0,0.06);">
+      <h3>Tendência (próximos 7 dias)</h3>
+      <canvas id="chartTrend" height="220"></canvas>
+      <p style="margin-top:8px;color:#555;font-size:14px;">Gráfico gerado a partir do histórico de agendamentos.</p>
+    </div>
+
+    <!-- Heatmap / horários -->
+    <div style="flex:1 1 320px; background:var(--branco); padding:18px; border-radius:10px; box-shadow:0 4px 10px rgba(0,0,0,0.06);">
+      <h3>Horários com mais agendamentos</h3>
+      <canvas id="chartHours" height="220"></canvas>
+      <p style="margin-top:8px;color:#555;font-size:14px;">Veja quais horários costumam ser mais cheios.</p>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:20px;margin-top:20px;flex-wrap:wrap;">
+    <!-- Top serviços -->
+    <div style="flex:1 1 320px;background:var(--branco);padding:18px;border-radius:10px;box-shadow:0 4px 10px rgba(0,0,0,0.06);">
+      <h3>Serviços mais populares</h3>
+      <ul id="topServices" style="list-style:none;padding-left:0;margin-top:10px;color:#333"></ul>
+    </div>
+
+    <!-- Ações -->
+    <div style="flex:1 1 320px;background:var(--branco);padding:18px;border-radius:10px;box-shadow:0 4px 10px rgba(0,0,0,0.06);">
+      <h3>Ações</h3>
+      <p>Botões rápidos para gerar previsões, baixar gráficos e configurar lembretes automáticos:</p>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-top:12px;">
+        <button id="btnGenerate" class="botao">Gerar previsão agora</button>
+        <a id="downloadTrend" href="#" class="botao" style="background:#2F8F6D;text-decoration:none;text-align:center;">Baixar gráfico (PNG)</a>
+        <a href="{{ url_for('enviar_lembretes') }}" class="botao">
+            Enviar lembretes automáticos
+        </a>
+
+
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:22px;">
+    <a href="{{ url_for('listar_agendamentos') }}" class="botao">Voltar para Agendamentos</a>
+  </div>
+</main>
+
+<!-- scripts -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  // Mock data placeholders: quando o backend estiver pronto, substitua por fetch('/previsao_data') ou similar
+  const trendLabels = ['Hoje','+1','+2','+3','+4','+5','+6'];
+  const trendValues = [5, 7, 6, 9, 10, 8, 11];
+
+  const ctx = document.getElementById('chartTrend').getContext('2d');
+  const chartTrend = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: trendLabels,
+      datasets: [{
+        label: 'Agendamentos por dia',
+        data: trendValues,
+        fill: true,
+        tension: 0.3,
+        backgroundColor: 'rgba(122,220,179,0.15)',
+        borderColor: '#7ADCB3',
+        pointBackgroundColor: '#2F8F6D'
+      }]
+    },
+    options: { responsive:true, maintainAspectRatio:false }
+  });
+
+  // Hours histogram mock
+  const hoursCtx = document.getElementById('chartHours').getContext('2d');
+  const hoursLabels = ['08h','09h','10h','11h','12h','13h','14h','15h','16h','17h'];
+  const hoursValues = [2,4,6,3,2,1,5,7,6,4];
+  const chartHours = new Chart(hoursCtx, {
+    type: 'bar',
+    data: {
+      labels: hoursLabels,
+      datasets: [{ label: 'Agendamentos por horário', data: hoursValues, backgroundColor: '#7ADCB3' }]
+    },
+    options: { responsive:true, maintainAspectRatio:false }
+  });
+
+  // Top services mock
+  const topServices = ['Banho (40%)', 'Tosa (25%)', 'Consulta (20%)', 'Vacinação (15%)'];
+  const ul = document.getElementById('topServices');
+  topServices.forEach(s => {
+    const li = document.createElement('li');
+    li.style.padding = '8px 0';
+    li.textContent = '• ' + s;
+    ul.appendChild(li);
+  });
+
+  // Botões
+  document.getElementById('btnGenerate').addEventListener('click', async () => {
+    // chama a rota que gera a imagem do backend (ex: /previsao_image)
+    const a = document.getElementById('downloadTrend');
+    a.href = '/previsao_image'; // rota que implementamos no Flask (retorna image/png)
+    a.download = 'previsao_trend.png';
+    // opcional: abrir em nova aba para ver imagem
+    window.open('/previsao_image', '_blank');
+  });
+
+  // download link (inicialmente vazio)
+  document.getElementById('downloadTrend').addEventListener('click', (e) => {
+    // se quiser, ajustar comportamento aqui
+  });
+</script>
+{% endblock %}

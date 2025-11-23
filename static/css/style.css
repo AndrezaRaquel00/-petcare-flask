@@ -260,3 +260,45 @@ footer {
   margin: 0 8px;
   font-size: 20px;
 }
+
+/* pequenas regras para a página de previsões */
+.conteudo canvas { width:100% !important; height: 220px !important; }
+
+.notificacoes-icon {
+    position: relative;
+    cursor: pointer;
+    z-index: 9999;
+}
+
+#caixa-notificacoes {
+    position: absolute;
+    top: 35px;
+    right: 0;
+    width: 280px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    display: none;
+    padding: 10px;
+    z-index: 99999;
+}
+
+#icone-notificacoes {
+    cursor: pointer;
+    font-size: 22px;
+    position: relative;
+    z-index: 9999;
+}
+
+#contador-notificacoes {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: red;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 12px;
+    display: inline-block;
+
+}

@@ -13,3 +13,5 @@ window.addEventListener('DOMContentLoaded', () => {
 
   setInterval(nextSlide, 2500);
 });
+
+

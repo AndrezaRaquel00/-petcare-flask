@@ -8,7 +8,21 @@
         <li><a href="{{ url_for('listar_pets') }}">Pets</a></li>
         <li><a href="{{ url_for('listar_agendamentos') }}">Agendamentos</a></li>
         <li><a href="{{ url_for('financas') }}">Finanças</a></li>
+        <li><a href="{{ url_for('previsoes') }}">Previsões</a></li>
         <li><a href="{{ url_for('faqs') }}">FAQs</a></li>
+        <li class="notificacoes-icon">
+        <span id="icone-notificacoes">
+            🔔
+            <span id="contador-notificacoes"></span>
+        </span>
+
+        <div id="caixa-notificacoes">
+            <h4>Notificações</h4>
+            <div id="lista-notificacoes"></div>
+        </div>
+      </li>
+
+        
       </ul>
     </nav>
   </div>
